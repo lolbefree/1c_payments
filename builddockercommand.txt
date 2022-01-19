@@ -1,0 +1,2 @@
+docker image build --rm=false --no-cache -t as_sales_bot .
+docker save --output "c:\img\as_sales_bot.tar" as_sales_bot
