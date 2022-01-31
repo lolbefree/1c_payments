@@ -97,8 +97,9 @@ class Payments(InheritanceClass):
         chat_id_ = update.callback_query.message.chat.id
 
         res = [i for i in self.cursor.execute(f"""select * from cars_payments
-        where  1=case when '{auth_dict[chat_id_]['phone']}'  in (select * from telegram_vip_tels_access) then 1
-        when '{auth_dict[chat_id_]['phone']}' not in (select * from telegram_vip_tels_access) and  tel='{auth_dict[chat_id_]['phone']}'  then 1 
+        where 1=case when '{auth_dict[chat_id_]['phone']}'  in (select * from telegram_tels_access) and 
+        '{auth_dict[chat_id_]['phone']}' not in (select * from telegram_vip_tels_access) and tel='{auth_dict[chat_id_]['phone']}'  then 1
+        when '{auth_dict[chat_id_]['phone']}'  in (select * from telegram_vip_tels_access)   then 1 
        end and paydate='{income_date}'""")]
         for row in res:
             print("{}:\n{}".format(datetime.datetime.now(), row))
